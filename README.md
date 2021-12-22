@@ -1,21 +1,21 @@
 ## nextjs-ssr-experiment
 
 #### Example Usage:
-```typescript
+```javascript
 import {ExperimentProvider, Experiment, Variant} from "nextjs-ssr-experiment";
 
 <ExperimentProvider>
     <Experiment
-        name="experiment-name"
-        debugUriParam="experiment_debug=true"
-        onClick={console.log}
+        name="homepage"
         onRunExperiment={console.log}
     >
-        <Variant name="A" onClick={console.log}>
-            <h1>Headline 1</h1>
+        <Variant name="variant-a">
+            <h1>Variant A</h1>
+            <p>Some cool variant A content</p>
         </Variant>
-        <Variant name="B" onClick={console.log}>
-            <h1>Headline 2</h1>
+        <Variant name="variant-b">
+            <h1>Variant B</h1>
+            <p>Some really different variant B copy</p>
         </Variant>
     </Experiment>
 </ExperimentProvider>

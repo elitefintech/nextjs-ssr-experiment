@@ -9,7 +9,6 @@ import {Props as Variant} from './Variant';
 interface ExperimentProps {
     debug?: boolean;
     debugRoot?: HTMLElement;
-    debugUriParam?: string;
     /**
      * Unique name of the Experiment.
      * Used in reporting.
@@ -45,12 +44,12 @@ const MAX_AGE = 30; // 30 days
 export function Experiment(props: ExperimentProps) {
     const {
         debug: pDebug,
-        debugUriParam: pDebugUriParam,
         MAX_AGE: pMAX_AGE,
         name: pName,
         pickVariant: pPickVariant,
         children,
     } = props;
+    const debugUriParam = `experiment_${pName}_debug`;
     const [debug, setDebug] = useState(props.debug ?? false);
     const [cookies, setCookies] = useContext(ExperimentContext);
     const [variant, setVariant] = useState(
@@ -77,12 +76,11 @@ export function Experiment(props: ExperimentProps) {
         if (!pDebug) {
             setDebug(
                 !!(
-                    pDebugUriParam &&
-                    window.location.href.indexOf(pDebugUriParam) > -1
+                    window.location.href.indexOf(debugUriParam) > -1
                 )
             );
         }
-    }, [pDebug, pDebugUriParam]);
+    }, [pDebug, debugUriParam]);
 
     /**
      * Whenever the variant changes value we change the value in the cookie as well.
