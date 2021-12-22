@@ -7,9 +7,6 @@ package-lock.json
 # testing
 /coverage
 
-# production
-/dist
-
 # misc
 .DS_Store
 *.pem
