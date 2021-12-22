@@ -9,35 +9,34 @@ import {Props as Variant} from './Variant';
 interface ExperimentProps {
     debug?: boolean;
     debugRoot?: HTMLElement;
+    /**
+     * Unique name of the Experiment.
+     * Used in reporting.
+     */
     name: string;
     onClick?: (
         event: React.MouseEvent<HTMLElement>,
         experimentName: string,
         variantName: string
     ) => void;
+    /**
+     * This callback is executed when a Variant has been loaded
+     */
     onRunExperiment?: (experimentName: string, variantName: string) => void;
-    pickVariant: (variants: React.ReactElement<Variant, any>[]) => string;
+    /**
+     * Custom variant picker. By default a Variant is chosen with Math.random()
+     * By providing your own function you can determine how a Variant is chosen.
+     * Variants[] are the Variant components passed as children.
+     * Return of the function is the index of the Variant to be run.
+     */
+    pickVariant?: (variants: React.ReactElement<Variant, any>[]) => number;
     children: React.ReactElement<VariantProps, any>[];
     MAX_AGE?: number;
 }
 
-function pickVariant(variants: Variant[]): string {
-    let total = 0;
-    for (let i = 0; i < variants.length; ++i) {
-        total += variants[i].weight;
-    }
-
-    const threshold = Math.random() * total;
-    total = 0;
-    for (let i = 0; i < variants.length - 1; ++i) {
-        total += variants[i].weight;
-
-        if (total >= threshold) {
-            return variants[i].name;
-        }
-    }
-
-    return variants[variants.length - 1].name;
+function pickVariant(variants: React.ReactElement<Variant, any>[]) {
+    const pickedVariant = Math.floor(Math.random() * variants.length);
+    return pickedVariant;
 }
 
 const MAX_AGE = 30; // 30 days
@@ -55,26 +54,39 @@ export function Experiment(props: ExperimentProps) {
     const [cookies, setCookies] = useContext(ExperimentContext);
     const [variant, setVariant] = useState(
         cookies[encodeURIComponent(props.name)]
-            ? cookies[encodeURIComponent(props.name)] : "default"
+            ? parseInt(cookies[encodeURIComponent(props.name)], 10)
+            : -1
     );
     const [open, setOpen] = React.useState(false);
 
+    /**
+     * Component did mount
+     * We pick a variant if none has been set.
+     */
     useEffect(() => {
-        if (variant === null) {
-            const variants = children.map(el => el.props);
-            const pickedVariant = pPickVariant ? pPickVariant(children) : pickVariant(variants);
+        if (variant === -1) {
+            const pickedVariant = pPickVariant
+                ? pPickVariant(children)
+                : pickVariant(children);
             setVariant(pickedVariant);
         }
     }, [pPickVariant, children, variant]);
 
     useEffect(() => {
         if (!pDebug) {
-            setDebug(window.location.href.indexOf(debugUriParam) > -1);
+            setDebug(
+                !!(
+                    window.location.href.indexOf(debugUriParam) > -1
+                )
+            );
         }
     }, [pDebug, debugUriParam]);
 
+    /**
+     * Whenever the variant changes value we change the value in the cookie as well.
+     */
     useEffect(() => {
-        if (variant !== null) {
+        if (variant !== -1) {
             let newCookies: any = {};
             if (cookies) {
                 newCookies = {
@@ -91,6 +103,10 @@ export function Experiment(props: ExperimentProps) {
         }
     }, [variant, pMAX_AGE, pName, cookies, setCookies]);
 
+    /**
+     * Remove the experiment from the cookie
+     * @param experimentName
+     */
     function removeExperiment(experimentName: string) {
         let newCookies: any = {};
         if (cookies) {
@@ -102,6 +118,10 @@ export function Experiment(props: ExperimentProps) {
         setCookies(trimmedCookies);
     }
 
+    /**
+     * Inject some extra functionality into the child Variant components.
+     * These are mostly callbacks for reporting purposes.
+     */
     const childrenWithProps = React.Children.map(props.children, (child) => {
         return React.cloneElement(child, {
             onClick: (
@@ -142,13 +162,13 @@ export function Experiment(props: ExperimentProps) {
     };
 
     function debugChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setVariant(e.currentTarget.value);
+        setVariant(parseInt(e.currentTarget.value, 10));
     }
 
     return (
         <>
             {childrenWithProps.length < 2 ? childrenWithProps : null}
-            {variant !== "default" ? childrenWithProps.find(el => el.key == variant) : null}
+            {variant > -1 ? childrenWithProps[variant] : null}
 
             {typeof document !== 'undefined' && debug
                 ? ReactDOM.createPortal(
@@ -161,7 +181,7 @@ export function Experiment(props: ExperimentProps) {
                         }}
                         onClick={handleOpen}
                     >
-                        A/B {props.name} ({variant || "null" + 1}∈
+                        A/B {props.name} ({variant + 1}∈
                         {childrenWithProps.length})
                     </button>,
                     props.debugRoot ||

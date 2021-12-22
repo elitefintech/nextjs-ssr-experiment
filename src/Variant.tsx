@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 
 export interface Props {
     name: string;
-    weight: number;
     onClick?: (
         event: React.MouseEvent<HTMLElement>,
         variantName: string
