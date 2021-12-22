@@ -2,7 +2,7 @@
   "name": "nextjs-ssr-experiment",
   "author": "Elite Fintech, LLC",
   "repository": "https://github.com/elitefintech/nextjs-ssr-experiment",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "private": false,
   "main": "dist/index",
   "typings": "dist/index",
