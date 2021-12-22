@@ -9,7 +9,7 @@ yarn.lock
 /coverage
 
 # production
-/lib
+/dist
 
 # misc
 .DS_Store
