@@ -2,7 +2,7 @@
   "name": "nextjs-ssr-experiment",
   "author": "Elite Fintech, LLC",
   "repository": "https://github.com/elitefintech/nextjs-ssr-experiment",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "private": false,
   "main": "dist/index",
   "typings": "dist/index",
@@ -16,9 +16,6 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "js-cookie": "latest",
-    "react": "latest",
-    "react-dom": "latest",
     "@babel/cli": "latest",
     "@babel/core": "latest",
     "@babel/parser": "latest",
@@ -30,6 +27,9 @@
     "@types/react-dom": "latest",
     "babel-jest": "latest",
     "babel-preset-minify": "latest",
+    "js-cookie": "latest",
+    "react": "latest",
+    "react-dom": "latest",
     "typescript": "latest"
   },
   "keywords": [
