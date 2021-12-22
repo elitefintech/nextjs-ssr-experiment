@@ -1,0 +1,49 @@
+{
+  "name": "nextjs-ssr-experiment",
+  "version": "0.0.1",
+  "private": false,
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "scripts": {
+    "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "prepublish": "yarn tsc"
+  },
+  "dependencies": {
+    "react": "latest",
+    "react-dom": "latest",
+    "js-cookie": "latest"
+  },
+  "peerDependencies": {
+    "prop-types": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "js-cookie": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/js-cookie": "latest",
+    "@babel/types": "latest",
+    "@babel/parser": "latest",
+    "@babel/cli": "latest",
+    "@babel/core": "latest",
+    "@babel/preset-env": "latest",
+    "@babel/preset-react": "latest",
+    "babel-jest": "latest",
+    "babel-preset-minify": "latest"
+  },
+  "keywords": [
+    "experiment",
+    "experimentation",
+    "next",
+    "next.js",
+    "react",
+    "react-component",
+    "testing",
+    "ab",
+    "A/B",
+    "a/b",
+    "ab",
+    "multivariate"
+  ]
+}
