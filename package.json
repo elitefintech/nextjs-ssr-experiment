@@ -1,12 +1,12 @@
 {
   "name": "nextjs-ssr-experiment",
   "repository": "https://github.com/elitefintech/nextjs-ssr-experiment",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": false,
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "tsc": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "tsc": "tsc -p tsconfig.json",
     "prepublish": "yarn tsc"
   },
   "dependencies": {
