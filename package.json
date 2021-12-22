@@ -10,17 +10,15 @@
     "tsc": "tsc -p tsconfig.json",
     "prepublish": "yarn tsc"
   },
-  "dependencies": {
+  "peerDependencies": {
     "js-cookie": "^3.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
-  "peerDependencies": {
+  "devDependencies": {
     "js-cookie": "latest",
     "react": "latest",
-    "react-dom": "latest"
-  },
-  "devDependencies": {
+    "react-dom": "latest",
     "@babel/cli": "latest",
     "@babel/core": "latest",
     "@babel/parser": "latest",
