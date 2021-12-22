@@ -6,7 +6,7 @@ interface Props {
     open: boolean;
     handleClose: () => void;
     handleRemoveExperiment: (experimentName: string) => void;
-    variant: number;
+    variant: string;
     [x: string]: any;
 }
 
@@ -31,10 +31,10 @@ export function Debug(props: Props) {
                         <label key={child.props.name}>
                             <input
                                 type="radio"
-                                value={idx}
+                                value={child.props.variant}
                                 name={props.name}
                                 onChange={props.debugChange}
-                                checked={idx === props.variant}
+                                checked={child.props.variant === props.variant}
                             />
                             {child.props.name}
                         </label>
