@@ -2,7 +2,7 @@
 
 #### Example Usage:
 ```typescript
-import { Experiment, Variant, ExperimentProvider } from "@elitefintechmodules/nextjs-ssr-experiment";
+import {ExperimentProvider, Experiment, Variant} from "nextjs-ssr-experiment";
 
 <ExperimentProvider>
     <Experiment

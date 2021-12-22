@@ -1,5 +1,6 @@
 {
   "name": "nextjs-ssr-experiment",
+  "author": "Elite Fintech, LLC",
   "repository": "https://github.com/elitefintech/nextjs-ssr-experiment",
   "version": "0.0.6",
   "private": false,
@@ -20,6 +21,7 @@
     "react-dom": "latest"
   },
   "devDependencies": {
+    "typescript": "latest",
     "@babel/cli": "latest",
     "@babel/core": "latest",
     "@babel/parser": "latest",
