@@ -20,3 +20,8 @@ import {ExperimentProvider, Experiment, Variant} from "nextjs-ssr-experiment";
     </Experiment>
 </ExperimentProvider>
 ```
+
+#### yalc for local develpment
+```bash
+yalc publish --replace --push
+```
